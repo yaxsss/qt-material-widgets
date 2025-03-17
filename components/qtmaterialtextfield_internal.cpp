@@ -29,24 +29,31 @@ QtMaterialTextFieldStateMachine::QtMaterialTextFieldStateMachine(QtMaterialTextF
     QEventTransition *transition;
     QPropertyAnimation *animation;
 
+    // 当组件获得焦点时，切换到聚焦状态(通过事件转移状态)
     transition = new QEventTransition(parent, QEvent::FocusIn);
     transition->setTargetState(m_focusedState);
+    // 添加从普通状态到聚焦状态的过渡
     m_normalState->addTransition(transition);
 
+    // 设置获得焦点时的动画
     animation = new QPropertyAnimation(this, "progress", this);
     animation->setEasingCurve(QEasingCurve::InCubic);
     animation->setDuration(310);
     transition->addAnimation(animation);
 
+    // 当组件失去焦点时，切换到正常状态
     transition = new QEventTransition(parent, QEvent::FocusOut);
     transition->setTargetState(m_normalState);
+    // 添加从聚焦状态到普通状态的过渡
     m_focusedState->addTransition(transition);
 
+    // 设置失去焦点时的动画
     animation = new QPropertyAnimation(this, "progress", this);
     animation->setEasingCurve(QEasingCurve::OutCubic);
     animation->setDuration(310);
     transition->addAnimation(animation);
 
+    // 进入普通状态时，设置进度属性为0, 进入聚焦状态时，设置进度属性为1
     m_normalState->assignProperty(this, "progress", 0);
     m_focusedState->assignProperty(this, "progress", 1);
 
@@ -82,6 +89,7 @@ void QtMaterialTextFieldStateMachine::setLabel(QtMaterialTextFieldLabel *label)
         m_offsetAnimation = new QPropertyAnimation(m_label, "offset", this);
         m_offsetAnimation->setDuration(210);
         m_offsetAnimation->setEasingCurve(QEasingCurve::OutCubic);
+        // 默认动画：所有状态变化都会触发
         addDefaultAnimation(m_offsetAnimation);
 
         m_colorAnimation = new QPropertyAnimation(m_label, "color", this);

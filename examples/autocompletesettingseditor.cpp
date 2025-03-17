@@ -85,6 +85,8 @@ AutoCompleteSettingsEditor::AutoCompleteSettingsEditor(QWidget *parent)
       , "Wyoming"
     };
 
+    m_autocomplete->setLabel("Username");
+
     m_autocomplete->setDataSource(states);
 
     layout->addWidget(m_autocomplete);

@@ -9,6 +9,7 @@
 QtMaterialOverlayWidget::QtMaterialOverlayWidget(QWidget *parent)
     : QWidget(parent)
 {
+    // 父窗体安装事件过滤器
     if (parent) {
         parent->installEventFilter(this);
     }
@@ -52,6 +53,7 @@ bool QtMaterialOverlayWidget::eventFilter(QObject *obj, QEvent *event)
 {
     switch (event->type())
     {
+    // 父窗口触发Move和Resize事件时，子窗体跟着修改大小
     case QEvent::Move:
     case QEvent::Resize:
         setGeometry(overlayGeometry());

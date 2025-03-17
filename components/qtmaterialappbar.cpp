@@ -32,12 +32,12 @@ void QtMaterialAppBarPrivate::init()
     Q_Q(QtMaterialAppBar);
 
     useThemeColors = true;
-
+    // 为控件或图形项添加阴影效果
     QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect;
     effect->setBlurRadius(11);
     effect->setColor(QColor(0, 0, 0, 50));
     effect->setOffset(0, 3);
-
+    // 为控件（widget）或图形项（graphics item）设置图形效果（graphics effect）
     q->setGraphicsEffect(effect);
 
     QHBoxLayout *layout = new QHBoxLayout;

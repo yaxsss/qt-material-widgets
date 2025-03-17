@@ -458,6 +458,10 @@ Qt::Alignment QtMaterialFlatButton::textAlignment() const
 /*!
  *  \reimp
  */
+// sizeHint() 是一个非常重要的函数，它用于返回一个控件（widget）的推荐大小（preferred size）
+// 布局管理：当控件被添加到布局中时，布局管理器会调用 sizeHint() 来获取控件的推荐大小，并根据这个大小来安排控件的位置和尺寸。
+// 自定义控件：如果你在开发自定义控件，可以重写 sizeHint() 函数来返回你认为最适合该控件的大小。这样，当你的控件被添加到布局中时，布局管理器会根据你返回的大小来调整控件
+// 动态调整：在某些情况下，控件的内容可能会发生变化（例如文本长度变化），这时可以通过调用 updateGeometry() 来通知布局管理器重新计算控件的大小，布局管理器会再次调用 sizeHint() 来获取新的推荐大小。
 QSize QtMaterialFlatButton::sizeHint() const
 {
     ensurePolished();

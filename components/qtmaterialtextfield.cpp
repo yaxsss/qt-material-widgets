@@ -40,6 +40,7 @@ void QtMaterialTextFieldPrivate::init()
     q->setFont(QFont("Roboto", 11, QFont::Normal));
 
     stateMachine->start();
+    // 强制立即处理事件队列中的事件
     QCoreApplication::processEvents();
 }
 
@@ -283,21 +284,24 @@ void QtMaterialTextField::paintEvent(QPaintEvent *event)
 {
     Q_D(QtMaterialTextField);
 
+    // 调用QLineEdit的paintEvent方法
     QLineEdit::paintEvent(event);
 
     QPainter painter(this);
 
     const qreal progress = d->stateMachine->progress();
 
+    // 如果文本为空，并且进度小于1，则绘制背景
     if (text().isEmpty() && progress < 1)
     {
         painter.setOpacity(1-progress);
         painter.fillRect(rect(), parentWidget()->palette().color(backgroundRole()));
     }
 
-    const int y = height()-1;
-    const int wd = width()-5;
+    const int y = height()-1; // 输入线的高度
+    const int wd = width()-5; // 输入线的宽度
 
+    // 如果需要显示输入线，则绘制输入线
     if (d->showInputLine)
     {
         QPen pen;
@@ -305,12 +309,13 @@ void QtMaterialTextField::paintEvent(QPaintEvent *event)
         pen.setColor(inputLineColor());
 
         if (!isEnabled()) 
-            pen.setStyle(Qt::DashLine);
+            pen.setStyle(Qt::DashLine); // 如果组件不可用，则绘制虚线
 
         painter.setPen(pen);
         painter.setOpacity(1);
         painter.drawLine(QLineF(2.5, y, wd, y));
 
+        // 绘制动画效果的高亮线
         QBrush brush;
         brush.setStyle(Qt::SolidPattern);
         brush.setColor(inkColor());
@@ -319,7 +324,9 @@ void QtMaterialTextField::paintEvent(QPaintEvent *event)
         {
             painter.setPen(Qt::NoPen);
             painter.setBrush(brush);
+            // 计算高亮线的宽度
             const int w = (1-progress)*static_cast<qreal>(wd/2);
+            // 绘制高亮线
             painter.drawRect(w+2.5, height()-2, wd-w*2, 2);
         }
     }

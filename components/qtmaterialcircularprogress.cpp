@@ -39,6 +39,10 @@ void QtMaterialCircularProgressPrivate::init()
 
     QPropertyAnimation *animation;
 
+    // q作用父对象，主要用于内存管理和对象生命周期控制
+    // 当父对象被销毁时，Qt会自动销毁其所有子对象（包括动画对象）
+    // 局部对象或静态对象的生命周期不能超过其父对象，否则会发生未定义行为。
+    // 如果子对象是全局变量，确保它的父对象在程序运行期间始终有效。
     animation = new QPropertyAnimation(q);
     animation->setPropertyName("dashLength");
     animation->setTargetObject(delegate);

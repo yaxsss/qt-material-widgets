@@ -248,6 +248,7 @@ void QtMaterialBadge::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
+    // 将坐标系平移到(d->x,d->y)这是徽章的偏移量
     painter.translate(d->x, d->y);
 
     QBrush brush;
