@@ -2,7 +2,9 @@
 #define LOGINWINDOW_H
 
 #include <QWidget>
-#include <QTabWidget>
+#include <QStackedWidget>
+#include "qtmaterialtabs.h"
+#include "qtmaterialappbar.h"
 #include "qtmaterialtextfield.h"
 #include "qtmaterialraisedbutton.h"
 #include "qtmaterialflatbutton.h"
@@ -28,7 +30,8 @@ private:
     void setupQuickLogin();
     
 private:
-    QTabWidget *m_tabWidget;
+    QtMaterialTabs *m_tabWidget;
+    QStackedWidget *m_tabContent;
     QtMaterialTextField *m_accountField;
     QtMaterialTextField *m_passwordField;
     QtMaterialTextField *m_captchaField;
